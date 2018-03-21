@@ -205,11 +205,17 @@ public class Path {
      * 
      * @return Total length of the path (in meters).
      * 
-     * @deprecated Need to be implemented.
      */
     public float getLength() {
-        // TODO:
-        return 0;
+    	
+    	// on parcours la liste pour calculer la taille totale
+    	int taille = 0 ;
+    	for (int i=0; i<this.getArcs().size(); i++)
+    	{
+    		taille += this.getArcs().get(i).getLength() ;
+    	}
+    	
+        return taille;
     }
 
     /**
@@ -223,8 +229,16 @@ public class Path {
      * @deprecated Need to be implemented.
      */
     public double getTravelTime(double speed) {
-        // TODO:
-        return 0;
+        
+    	// on parcours la liste d'arc pour sommer les traveltime
+    	double time = 0 ;
+    	for (int i=0 ; i<this.getArcs().size(); i++)
+    	{
+    		time += this.getArcs().get(i).getTravelTime(speed) ;
+    	}
+    	
+    	
+        return time ;
     }
 
     /**
