@@ -208,7 +208,7 @@ public class Path {
      */
     public float getLength() {
     	
-    	// on parcours la liste pour calculer la taille totale
+    	// on parcourt la liste pour calculer la taille totale
     	int taille = 0 ;
     	for (int i=0; i<this.getArcs().size(); i++)
     	{
