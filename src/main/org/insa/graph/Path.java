@@ -25,12 +25,55 @@ public class Path {
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
      * 
-     * @deprecated Need to be implemented.
+     * 
      */
     public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
+        
+        //Si un seul node dans la liste, appeler un constructeur particulier qui ne prend qu'un node en second paramètre.
+        if(nodes.size()==1)
+        {
+        	return new Path(graph,nodes.get(0));
+        }
+        
+        // Pour chaque node de la liste passée en paramètre (sauf le dernier, qui n'aura pas de suivant)
+        for (int i=0; i<nodes.size()-1 ; i++)
+        {
+        	double vitessemeilleur = 1000000.0;
+        	int ajoute=0;
+        	//Examiner ses successeurs
+        	while (nodes.get(i).iterator().hasNext())
+        	{
+        		Arc arcetudie = nodes.get(i).iterator().next();
+        		//Si le successeur va sur le bon "node suivant"
+        		if(arcetudie.getDestination()==nodes.get(i+1))
+        		{
+        			// On regarde s'il est plus rapide qu'un autre déja trouvé
+        			if (arcetudie.getMinimumTravelTime()<vitessemeilleur)
+        			{
+        				
+        				if(ajoute==1)
+        				{
+        					arcs.remove(i);
+        					arcs.add(arcetudie);
+        					vitessemeilleur=arcetudie.getMinimumTravelTime();
+        				}
+        				else
+        				{
+        					arcs.add(arcetudie);
+        					ajoute=1;
+        					vitessemeilleur=arcetudie.getMinimumTravelTime();
+        				}
+        			}
+        		}
+        	}
+        	// Si l'arc mémorisé est encore -1, alors aucun arc ne va sur le node suivant --> exception.
+        	if (ajoute==0)
+        	{
+        		throw new IllegalArgumentException("La liste de nodes n'est pas valide");
+        	}
+        }
         return new Path(graph, arcs);
     }
 
@@ -45,15 +88,56 @@ public class Path {
      * 
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
-     * 
-     * @deprecated Need to be implemented.
      */
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
+      //Si un seul node dans la liste, appeler un constructeur particulier qui ne prend qu'un node en second paramètre.
+        if(nodes.size()==1)
+        {
+        	return new Path(graph,nodes.get(0));
+        }
+        
+        // Pour chaque node de la liste passée en paramètre (sauf le dernier, qui n'aura pas de suivant)
+        for (int i=0; i<nodes.size()-1 ; i++)
+        {
+        	float longueurmeilleur = 1000000000;
+        	int ajoute=0;			//On retient si on a deja ajouté un arc pour ce node
+        	//Examiner ses successeurs
+        	while (nodes.get(i).iterator().hasNext())
+        	{
+        		Arc arcetudie = nodes.get(i).iterator().next();
+        		//Si le successeur va sur le bon "node suivant"
+        		if(arcetudie.getDestination()==nodes.get(i+1))
+        		{
+        			// On regarde s'il est plus rapide qu'un autre déja trouvé
+        			if (arcetudie.getLength()<longueurmeilleur)
+        			{
+        				
+        				if(ajoute==1) //Si on a déja ajouté un arc mais pas le plus rapide, on le vire pour le remplacer
+        				{
+        					arcs.remove(i);
+        					arcs.add(arcetudie);
+        					longueurmeilleur=arcetudie.getLength();
+        				}
+        				else		//Sinon on ajoute juste celui qui répond à nos critères
+        				{
+        					arcs.add(arcetudie);
+        					ajoute=1;
+        					longueurmeilleur=arcetudie.getLength();
+        				}
+        			}
+        		}
+        	}
+        	// Si on a rien ajouté, alors la liste de node en paramètre c'est de la grosse merde
+        	if (ajoute==0)
+        	{
+        		throw new IllegalArgumentException("La liste de nodes n'est pas valide");
+        	}
+        }
         return new Path(graph, arcs);
     }
+
 
     /**
      * Concatenate the given paths.
@@ -65,6 +149,7 @@ public class Path {
      * @throws IllegalArgumentException if the paths cannot be concatenated (IDs of
      *         map do not match, or the end of a path is not the beginning of the
      *         next).
+     
      */
     public static Path concatenate(Path... paths) throws IllegalArgumentException {
         if (paths.length == 0) {
@@ -193,10 +278,37 @@ public class Path {
      * 
      * @return true if the path is valid, false otherwise.
      * 
-     * @deprecated Need to be implemented.
      */
     public boolean isValid() {
-        // TODO:
+    	// Un chemin vide est valide
+    	if(this.getArcs().size()==0)
+    	{
+    		return true;
+    	}
+    	// Un chemin constitué d'un seul node est valide
+    	else if (this.getArcs().size()==1)
+    	{
+    		return true;														
+    	}
+    	// L'origine du chemin doit être l'antécédent du premier arc
+    	if(this.getOrigin()==this.getArcs().get(0).getOrigin())
+    	{
+    	   	// La dest du dernier arc doit etre la dest du chemin
+        	if(this.getDestination()==this.getArcs().get(this.getArcs().size()-1).getDestination())
+        	{
+            	// Les nodes "du milieu" doivent être tous liés 
+            	for (int i=0; i<this.getArcs().size()-2; i++)
+            	{
+            		if(this.getArcs().get(i).getDestination()!=this.getArcs().get(i+1).getOrigin())
+            		{
+            			return false;
+            		}
+            	// On vérifie que a est égal au nombre de liaisons testées (auquel cas tout est bon)
+            	}
+            	return true ;
+        	}
+    	}
+
         return false;
     }
 
@@ -209,7 +321,7 @@ public class Path {
     public float getLength() {
     	
     	// on parcourt la liste pour calculer la taille totale
-    	int taille = 0 ;
+    	float taille = 0 ;
     	for (int i=0; i<this.getArcs().size(); i++)
     	{
     		taille += this.getArcs().get(i).getLength() ;
@@ -226,11 +338,11 @@ public class Path {
      * @return Time (in seconds) required to travel this path at the given speed (in
      *         kilometers-per-hour).
      * 
-     * @deprecated Need to be implemented.
+     *
      */
     public double getTravelTime(double speed) {
         
-    	// on parcours la liste d'arc pour sommer les traveltime
+    	// on parcourt la liste d'arc pour sommer les traveltime
     	double time = 0 ;
     	for (int i=0 ; i<this.getArcs().size(); i++)
     	{
@@ -247,11 +359,17 @@ public class Path {
      * 
      * @return Minimum travel time to travel this path (in seconds).
      * 
-     * @deprecated Need to be implemented.
      */
     public double getMinimumTravelTime() {
-        // TODO:
-        return 0;
+    	// on parcourt la liste d'arc pour sommer les minimumtraveltime
+    	double time = 0 ;
+    	for (int i=0 ; i<this.getArcs().size(); i++)
+    	{
+    		time += this.getArcs().get(i).getMinimumTravelTime() ;
+    	}
+    	
+    	
+        return time ;
     }
 
 }
