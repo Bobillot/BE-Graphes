@@ -27,56 +27,49 @@ public class Path {
      * 
      * 
      */
-    public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
+	public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
+    	
         List<Arc> arcs = new ArrayList<Arc>();
         
-        //Si un seul node dans la liste, appeler un constructeur particulier qui ne prend qu'un node en second paramètre.
-        if(nodes.size()==1)
+        // Si la liste de noeud ne contient qu'un seul noeud
+        if (nodes.size() == 1)
         {
-        	return new Path(graph,nodes.get(0));
+        	return new Path(graph, nodes.get(0)); // On retourne un path avec le seul noeud
         }
-        
-        // Pour chaque node de la liste passée en paramètre (sauf le dernier, qui n'aura pas de suivant)
-        for (int i=0; i<nodes.size()-1 ; i++)
-        {
-        	double vitessemeilleur = 1000000.0;
-        	int ajoute=0;
-        	//Examiner ses successeurs
-        	while (nodes.get(i).iterator().hasNext())
-        	{
-        		Arc arcetudie = nodes.get(i).iterator().next();
-        		//Si le successeur va sur le bon "node suivant"
-        		if(arcetudie.getDestination()==nodes.get(i+1))
-        		{
-        			// On regarde s'il est plus rapide qu'un autre déja trouvé
-        			if (arcetudie.getMinimumTravelTime()<vitessemeilleur)
-        			{
-        				
-        				if(ajoute==1)
-        				{
-        					arcs.remove(i);
-        					arcs.add(arcetudie);
-        					vitessemeilleur=arcetudie.getMinimumTravelTime();
-        				}
-        				else
-        				{
-        					arcs.add(arcetudie);
-        					ajoute=1;
-        					vitessemeilleur=arcetudie.getMinimumTravelTime();
-        				}
-        			}
-        		}
-        	}
-        	// Si l'arc mémorisé est encore -1, alors aucun arc ne va sur le node suivant --> exception.
-        	if (ajoute==0)
-        	{
-        		throw new IllegalArgumentException("La liste de nodes n'est pas valide");
-        	}
-        }
+        	
+    		for (int i=0; i<nodes.size()-1 ; i++) // On va parcourir tous nos nodes, sauf le dernier
+            {
+    			java.util.Iterator<Arc> it = nodes.get(i).iterator();
+            	Arc tmp = null;                 // Stockage du meilleur arc       	
+            	//Examiner ses successeurs
+            	while (it.hasNext())
+            	{
+            		Arc arcetudie = it.next();
+            		
+            		//Si le successeur va sur le bon "node suivant"
+            		if(arcetudie.getDestination().equals(nodes.get(i+1)))
+            		{
+            			/*
+            			 * Deux cas possible pour passer dans le if :
+            			 * 		- tmp == null : c'est le premier arc qu'on trouve, on le met en attendant de trouver mieux
+            			 * 		- tmp.getMinimumTravelTime() > arcetudie.getMinimumTravelTime() le temps de trajet de l'arc actuellement
+            			 * 			etudiÃ© est plus court que celui qui est stockÃ©, on remplace donc celui qui est stockÃ©
+            			 */
+            			if (tmp == null || tmp.getMinimumTravelTime() > arcetudie.getMinimumTravelTime())
+            			{
+            				tmp = arcetudie;
+            			}
+            		}
+            	}          	
+            	if (tmp == null)
+            	{
+            		throw new IllegalArgumentException("La liste de Nodes est invalide");
+            	}
+            	arcs.add(tmp);
+            }        
         return new Path(graph, arcs);
     }
-
     /**
      * Create a new path that goes through the given list of nodes (in order),
      * choosing the shortest route if multiple are available.
@@ -92,49 +85,42 @@ public class Path {
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-      //Si un seul node dans la liste, appeler un constructeur particulier qui ne prend qu'un node en second paramètre.
-        if(nodes.size()==1)
-        {
-        	return new Path(graph,nodes.get(0));
-        }
         
-        // Pour chaque node de la liste passée en paramètre (sauf le dernier, qui n'aura pas de suivant)
-        for (int i=0; i<nodes.size()-1 ; i++)
+        // Si la liste de noeud ne contient qu'un seul noeud
+        if (nodes.size() == 1)
         {
-        	float longueurmeilleur = 1000000000;
-        	int ajoute=0;			//On retient si on a deja ajouté un arc pour ce node
-        	//Examiner ses successeurs
-        	while (nodes.get(i).iterator().hasNext())
-        	{
-        		Arc arcetudie = nodes.get(i).iterator().next();
-        		//Si le successeur va sur le bon "node suivant"
-        		if(arcetudie.getDestination()==nodes.get(i+1))
-        		{
-        			// On regarde s'il est plus rapide qu'un autre déja trouvé
-        			if (arcetudie.getLength()<longueurmeilleur)
-        			{
-        				
-        				if(ajoute==1) //Si on a déja ajouté un arc mais pas le plus rapide, on le vire pour le remplacer
-        				{
-        					arcs.remove(i);
-        					arcs.add(arcetudie);
-        					longueurmeilleur=arcetudie.getLength();
-        				}
-        				else		//Sinon on ajoute juste celui qui répond à nos critères
-        				{
-        					arcs.add(arcetudie);
-        					ajoute=1;
-        					longueurmeilleur=arcetudie.getLength();
-        				}
-        			}
-        		}
-        	}
-        	// Si on a rien ajouté, alors la liste de node en paramètre c'est de la grosse merde
-        	if (ajoute==0)
-        	{
-        		throw new IllegalArgumentException("La liste de nodes n'est pas valide");
-        	}
+        	return new Path(graph, nodes.get(0)); // On retourne un path avec le seul noeud
         }
+        	
+        for (int i=0; i<nodes.size()-1 ; i++) // On va parcourir tous nos nodes, sauf le dernier
+        {
+			java.util.Iterator<Arc> it = nodes.get(i).iterator();
+        	Arc tmp = null;                 // Stockage du meilleur arc       	
+        	//Examiner ses successeurs
+        	while (it.hasNext())
+        	{
+        		Arc arcetudie = it.next();
+        		
+        		//Si le successeur va sur le bon "node suivant"
+        		if(arcetudie.getDestination().equals(nodes.get(i+1)))
+        		{
+            			/*
+            			 * Deux cas possible pour passer dans le if :
+            			 * 		- tmp == null : c'est le premier arc qu'on trouve, on le met en attendant de trouver mieux
+            			 * 		- tmp.getMinimumTravelTime() > arcetudie.getMinimumTravelTime() le temps de trajet de l'arc actuellement
+            			 * 			etudiÃ© est plus court que celui qui est stockÃ©, on remplace donc celui qui est stockÃ©
+            			 */
+            			if (tmp == null || tmp.getLength() > arcetudie.getLength())
+            			{
+            				tmp = arcetudie;
+            			}
+            		}
+            	}          	
+            	if (tmp == null){
+            		throw new IllegalArgumentException("La liste de Nodes est invalide");
+            	}
+            	arcs.add(tmp);
+            }        
         return new Path(graph, arcs);
     }
 
@@ -285,25 +271,25 @@ public class Path {
     	{
     		return true;
     	}
-    	// Un chemin constitué d'un seul node est valide
+    	// Un chemin constituï¿½ d'un seul node est valide
     	else if (this.getArcs().size()==1)
     	{
     		return true;														
     	}
-    	// L'origine du chemin doit être l'antécédent du premier arc
+    	// L'origine du chemin doit ï¿½tre l'antï¿½cï¿½dent du premier arc
     	if(this.getOrigin()==this.getArcs().get(0).getOrigin())
     	{
     	   	// La dest du dernier arc doit etre la dest du chemin
         	if(this.getDestination()==this.getArcs().get(this.getArcs().size()-1).getDestination())
         	{
-            	// Les nodes "du milieu" doivent être tous liés 
+            	// Les nodes "du milieu" doivent ï¿½tre tous liï¿½s 
             	for (int i=0; i<this.getArcs().size()-2; i++)
             	{
             		if(this.getArcs().get(i).getDestination()!=this.getArcs().get(i+1).getOrigin())
             		{
             			return false;
             		}
-            	// On vérifie que a est égal au nombre de liaisons testées (auquel cas tout est bon)
+            	// On vï¿½rifie que a est ï¿½gal au nombre de liaisons testï¿½es (auquel cas tout est bon)
             	}
             	return true ;
         	}
