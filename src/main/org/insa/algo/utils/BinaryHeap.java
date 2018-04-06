@@ -144,15 +144,39 @@ public class BinaryHeap<E extends Comparable<E>> implements PriorityQueue<E> {
 
     @Override
     public void remove(E x) throws ElementNotFoundException 
-    {
-    	if (this.isEmpty())
+    {	
+    	
+    	// index de l'element
+    	int index = this.array.indexOf(x) ;
+    
+    	
+    	// ---- cas triviaux (si vide ou l'element n'est pas présent ou elément en dehors de la taille tableau)
+    	if (this.isEmpty() || index ==-1 || index > this.currentSize-1)
     	{
-    		throw new ElementNotFoundException("Taille 0\n");
+    		throw new ElementNotFoundException(x);
     	}
-    	if (this.array.indexOf(x)==-1)
+    	
+    	// ---- cas général
+    	// on remplace l'element x par l'element le plus bas dans le tas
+    	E plus_bas = this.array.get(this.currentSize - 1) ;
+    	this.arraySet(index, plus_bas);
+    	
+    	// on décrémente la taille du tas
+    	this.currentSize -- ;
+    	
+    	// on effectue les percolate pour avoir un tas correct
+    	int index_parent = this.index_parent(index);
+    	// si l'element est plus grand que son prédécesseur OU si c'est le premier element, on le descend
+    	if(index == 0 || (this.array.get(index_parent).compareTo(this.array.get(index)) < 0))
     	{
-    		throw new ElementNotFoundException("L'element n'est pas dans le tableau\n");
+    		this.percolateDown(index);
     	}
+    	// si il est plus petit que son prédécesseur, on le monte
+    	else
+    	{
+    		this.percolateUp(index);
+    	}
+    	
     }
 
     @Override
