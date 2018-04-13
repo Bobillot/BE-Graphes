@@ -6,6 +6,7 @@ import org.insa.graph.Graph;
 import org.insa.graph.Node;
 import org.insa.algo.utils.*;
 
+import java.util.ArrayList;
 public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 
     public DijkstraAlgorithm(ShortestPathData data) {
@@ -18,35 +19,40 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     	// --------------------initialisation --------------------
     	// recup le graphe
         ShortestPathData data = getInputData();
-		Graph graph = data.getGraph();
+		Graph graph = data.getGraph();		
+		BinaryHeap<Label> Tas = new BinaryHeap() ;
+		Label temp;
 		
 		// structure de la solution
         ShortestPathSolution solution = null;
         
         // variables utiles
 		final int nbNodes = graph.size();
+		int nbSommetsMarques = 0;
         
         
         // init du tableau de label(premiere ligne avec des infini et un zero dans le noeud de depart)
-		Label[] distances = new Label[nbNodes];
-		int i = 0 ;
+		ArrayList<Label> distances = new ArrayList<Label>();
 		for (Node node : graph)
 		{
 			if (node.equals(data.getOrigin()))
 			{
-				distances[i] = new Label(node,0,null,0) ;
+				distances.add(new Label(node,0,null,0)) ;
+				Tas.insert(distances.get(distances.size())); //Ajout dans le tas
+				
 			}
 			else
 			{
-				distances[i]= new Label(node,Double.POSITIVE_INFINITY,null,0) ;
-			}
-			
-			i++ ;		
+				distances.add(new Label(node,Double.POSITIVE_INFINITY,null,0)) ;
+			}		
 		}
 		
-        // --------------------iterations --------------------
-		BinaryHeap<Label> Tas = new BinaryHeap() ;
-		
+        // --------------------iterations (poly1 page 89)-----------------
+		while (nbSommetsMarques!=nbNodes) 
+		{
+			temp = Tas.findMin();
+			distances.get(distances.indexOf(temp)).setMarquage(1); 
+		}
 		
 		
         
