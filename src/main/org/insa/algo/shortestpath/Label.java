@@ -40,11 +40,11 @@ public class Label implements Comparable<Label>
 	{
 		this.cout = cout ;
 	}
-	public void getPrecedent(Node noeud)
+	public void setPrecedent(Node noeud)
 	{
 		this.precedent = noeud ;
 	}
-	public void getMarquage(int marquage)
+	public void setMarquage(int marquage)
 	{
 		this.marquage = marquage;
 	}
