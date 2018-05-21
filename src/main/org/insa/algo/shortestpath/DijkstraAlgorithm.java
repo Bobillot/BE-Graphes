@@ -33,7 +33,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         
         // variables utiles
 		int destinationAtteinte=0;
-		int NbNodes = graph.size() ;
+		int nbNodes = graph.size() ;
         
         // -------------------------A FAIRE : ---------------------------------------------------------------
 		
@@ -42,26 +42,12 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 		// Associer l'index à l'id du Node (tab[Label.getPrecedent().getID()]= Label)
 		// bonus : Ne pas initialiser tout le tab mais au fur et à mesure
 		
-		// ------------------------------------------------------------------------------
+		// --------------------------------------------------------------------------------------------------
 		
-        // init du tableau de label(premiere ligne avec des infini et un zero dans le noeud de depart)
-		ArrayList<Label> distances = new ArrayList<Label>();
-		ArrayList<Node> tabNode = new ArrayList<Node>();		//A SUPPRIMER
-		for (Node node : graph)
-		{
-			if (node.compareTo(data.getOrigin())==0)
-			{
-				distances.add(new Label(node,0,null,0)) ;
-				tabNode.add(node);
-				Tas.insert(distances.get(tabNode.indexOf(node))); //Ajout dans le tas
-			}
-			else
-			{
-				distances.add(new Label(node,Double.POSITIVE_INFINITY,null,0)) ;
-				tabNode.add(node);
-			}		
-		}
-		
+        // creation du tableau de Label et ajout du premier �l�ment(origine)
+		Label distances[]=new Label[nbNodes];
+		distances[data.getOrigin().getId()]=new Label(data.getOrigin(),0,null,0);
+		Tas.insert(distances[data.getOrigin().getId()]);
         // --------------------iterations (poly1 page 89)-----------------
 		while (destinationAtteinte==0)
 		{
@@ -75,7 +61,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 			
 			// variables utiles
 			x = Tas.deleteMin();
-			distances.get(distances.indexOf(x)).setMarquage(1);// marquage du noeud actuel
+			distances[x.getNoeud().getId()].setMarquage(1);// marquage du noeud actuel
 			notifyNodeMarked(x.getNoeud());
 			Arc arcxy;
 			Node noeudy;
@@ -89,8 +75,14 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 				arcxy = it.next();
 				noeudy = arcxy.getDestination();
 				notifyNodeReached(noeudy);
+				
+				if(distances[noeudy.getId()]==null)
+				{
+					distances[noeudy.getId()]=new Label(noeudy,Double.POSITIVE_INFINITY,null,0);
+				}
+				
 				// On récupère le label correspondant au noeud y
-				y = distances.get(tabNode.indexOf(noeudy));
+				y = distances[noeudy.getId()];
 				
 	
 				// Si le noeud n'est pas marqué
@@ -100,8 +92,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 					if (y.getCout()>x.getCout()+data.getCost(arcxy) && data.isAllowed(arcxy))
 					{	
 						// On actualise le coût dans le tableau de label
-						distances.get(tabNode.indexOf(noeudy)).setCout(x.getCout()+data.getCost(arcxy));
-						distances.get(tabNode.indexOf(noeudy)).setPrecedent(x.getNoeud());
+						distances[y.getNoeud().getId()].setCout(x.getCout()+data.getCost(arcxy));
+						distances[y.getNoeud().getId()].setPrecedent(x.getNoeud());
 						
 						// on regarde si l'element est déjà dans le tas avant de l'ajouter
 						try
@@ -112,7 +104,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 						}
 						finally
 						{
-							y = distances.get(tabNode.indexOf(noeudy));
+							y = distances[y.getNoeud().getId()];
 							Tas.insert(y);
 						}
 					}
@@ -137,7 +129,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 		while (fin.compareTo(data.getOrigin())!=0)
 		{
 			listeNode.add(fin);
-			fin = distances.get(tabNode.indexOf(fin)).getPrecedent();
+			fin = distances[fin.getId()].getPrecedent();
 		}
 		listeNode.add(fin);
 		// on retourne la liste pour avoir le bon sens
