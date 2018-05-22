@@ -1,4 +1,3 @@
-package org.insa.graph;
 
 import static org.junit.Assert.assertEquals;
 

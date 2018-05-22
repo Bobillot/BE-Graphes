@@ -35,16 +35,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 		int destinationAtteinte=0;
 		int nbNodes = graph.size() ;
         
-        // -------------------------A FAIRE : ---------------------------------------------------------------
 		
-		// Changer l'arraylist distances par un tableau simple tab [] de la taille du NbNodes
-		// Supprimer tabNode
-		// Associer l'index à l'id du Node (tab[Label.getPrecedent().getID()]= Label)
-		// bonus : Ne pas initialiser tout le tab mais au fur et à mesure
-		
-		// --------------------------------------------------------------------------------------------------
-		
-        // creation du tableau de Label et ajout du premier �l�ment(origine)
+        // creation du tableau de Label et ajout du premier �l�ment(origine)
 		Label distances[]=new Label[nbNodes];
 		distances[data.getOrigin().getId()]=new Label(data.getOrigin(),0,null,0);
 		Tas.insert(distances[data.getOrigin().getId()]);
@@ -76,6 +68,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 				noeudy = arcxy.getDestination();
 				notifyNodeReached(noeudy);
 				
+				// si le noeud n'a jamais été initialisé dans le tab de label, on le fait
 				if(distances[noeudy.getId()]==null)
 				{
 					distances[noeudy.getId()]=new Label(noeudy,Double.POSITIVE_INFINITY,null,0);
