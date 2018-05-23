@@ -1,6 +1,7 @@
 package org.insa.algo.shortestpath;
 
 import java.io.IOException;
+import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.insa.algo.ArcInspector;
@@ -62,44 +63,62 @@ public class DijkstraTest
     @Test
     public void testDijkstra() 
     {
+
     	// tableau des solutions
     	float tab[][]=new float[6][6];
+    	float tab2[][]=new float[6][6];
     	
     	// parcours du tableau
     	for(int i = 0; i<6 ; i++)
     	{
     		for (int j=0 ; j<6 ; j++)
     		{
-    			// création du data étudié (Graph + chemin)
-    			ShortestPathData data = new ShortestPathData(graph, nodes[j], nodes[i],?????ArcInspectorFactory.getAllFilters().get(0));
-    			// appel de Bellman
-    			ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
-    			// appel de Dijkstra
-    			ShortestPathSolution solutionDijkstra = new DijkstraAlgorithm(data).doRun() ;
-    			
-    			// comparaison des deux solutions
-    			if (solutionBellman.equals(solutionDijkstra))
+    			if( i != j)
     			{
-    				tab[i][j] = solutionDijkstra.getPath().getLength() ;
-    			}
-    			else
-    			{
-    				tab[i][j] = -1 ;
-    			}
-    					
+	    			// création du data étudié (Graph + chemin)
+	    			ShortestPathData data = new ShortestPathData(graph, nodes[i], nodes[j],ArcInspectorFactory.getAllFilters().get(0));
+	    			// appel de Bellman
+	    			ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
+	    			// appel de Dijkstra
+	    			ShortestPathSolution solutionDijkstra = new DijkstraAlgorithm(data).doRun() ;
+	    			
+	    			// on remplit le tableau de solution de Dijkstra
+	    			if (solutionDijkstra.getPath() != null )
+	    			{
+	    				tab[i][j] = solutionDijkstra.getPath().getLength() ;
+	    				
+	    			}
+	    			else
+	    			{
+	    				tab[i][j] = -1 ;
+	    			}
+	    			
+	    			// on remplit le tableau de solution de Bellman
+	    			if (solutionBellman.getPath() != null )
+	    			{
+	    				tab2[i][j] = solutionBellman.getPath().getLength() ;
+	    				
+	    			}
+	    			else
+	    			{
+	    				tab2[i][j] = -1 ;
+	    			}		
+	    			
+	    			// Comparaison des deux solutions
+	    	    	assertEquals(tab[i][j],tab2[i][j],1e-6);
+	    			
+    			}		
     		}
     	}
     	
     	
     	// affichage du tableau
-    	for(int i = 0; i<6 ; i++)
-    	{
-    		for (int j=0 ; j<6 ; j++)
-    		{
-    			System.out.println(tab[i][j] + ", ");
-    		}
-    		System.out.println("\n");
-    	}
+
+    	System.out.println("Dijkstra");
+    	System.out.println(Arrays.deepToString(tab));
+    	System.out.println("Bellman");
+    	System.out.println(Arrays.deepToString(tab2));
+    	
     }
 
 }

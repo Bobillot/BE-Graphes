@@ -1,6 +1,4 @@
 package org.insa.algo.shortestpath;
-
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.*;
 
@@ -40,17 +38,12 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 		Label distances[]=new Label[nbNodes];
 		distances[data.getOrigin().getId()]=new Label(data.getOrigin(),0,null,0);
 		Tas.insert(distances[data.getOrigin().getId()]);
+		
+		
         // --------------------iterations (poly1 page 89)-----------------
-		while (destinationAtteinte==0)
-		{
-			// on verifie si le tas n'est pas vide càd si la destination est atteignable
-			if (Tas.isEmpty())
-			{
-				System.out.println("Aucun chemin n'existe entre ces points\n");
-				solution = new ShortestPathSolution(data, Status.INFEASIBLE);
-				return solution;
-			}
-			
+		// Tant que le tas n'est pas vide, ie que tous les nodes atteignables ne sont pas marqués
+		while (!Tas.isEmpty())
+		{			
 			// variables utiles
 			x = Tas.deleteMin();
 			distances[x.getNoeud().getId()].setMarquage(1);// marquage du noeud actuel
@@ -60,8 +53,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 			Label y;
 			Iterator<Arc> it = x.getNoeud().iterator();
 			
-			// tant qu'il exite un arc atteignable ou que le chemin n'est pas trouvé
-			while (it.hasNext() && destinationAtteinte==0)
+			// tant qu'il existe un arc atteignable
+			while (it.hasNext())
 			{
 				// On récupère un noeud successeur de x
 				arcxy = it.next();
@@ -111,29 +104,38 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 			}
 		}
 
-			
-        // on crée la liste de node de de la solution
-		Path chemin = new Path(graph);
-		ArrayList<Node> listeNode = new ArrayList<Node>();
-        
-		// On remonte dans le tableau destinations à partir de la fin
-		Node fin = data.getDestination();
-		// tant que le precedent de fin n'est pas "origine"
-		while (fin.compareTo(data.getOrigin())!=0)
+		// on verifie si la destination a été atteinte
+		if (destinationAtteinte==0)
 		{
-			listeNode.add(fin);
-			fin = distances[fin.getId()].getPrecedent();
+			//System.out.println("Aucun chemin n'existe entre ces points\n");
+			solution = new ShortestPathSolution(data, Status.INFEASIBLE);
+			return solution;
 		}
-		listeNode.add(fin);
-		// on retourne la liste pour avoir le bon sens
-		Collections.reverse(listeNode);
-		
-		// on crée le chemin
-		chemin=Path.createShortestPathFromNodes(graph,listeNode);
-		
-		// on crée la solution
-		solution = new ShortestPathSolution(data,Status.OPTIMAL,chemin);
-        return solution;
+		else
+		{	
+	        // on crée la liste de node de de la solution
+			Path chemin = new Path(graph);
+			ArrayList<Node> listeNode = new ArrayList<Node>();
+	        
+			// On remonte dans le tableau destinations à partir de la fin
+			Node fin = data.getDestination();
+			// tant que le precedent de fin n'est pas "origine"
+			while (fin.compareTo(data.getOrigin())!=0)
+			{
+				listeNode.add(fin);
+				fin = distances[fin.getId()].getPrecedent();
+			}
+			listeNode.add(fin);
+			// on retourne la liste pour avoir le bon sens
+			Collections.reverse(listeNode);
+			
+			// on crée le chemin
+			chemin=Path.createShortestPathFromNodes(graph,listeNode);
+			
+			// on crée la solution
+			solution = new ShortestPathSolution(data,Status.OPTIMAL,chemin);
+	        return solution;
+		}
     }
 
 }
