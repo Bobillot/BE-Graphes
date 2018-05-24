@@ -35,6 +35,10 @@ public class Label implements Comparable<Label>
 		return this.marquage ;
 	}
 	
+	public double getTotalCost()
+	{
+		return this.cout;
+	}
 	// setter
 	public void setCout(double cout)
 	{
@@ -52,11 +56,11 @@ public class Label implements Comparable<Label>
 	// fonction de comparaison retourne (this-autre)
 	public int compareTo(Label autre)
 	{
-		if(this.getCout()-autre.getCout()<0) 
+		if(this.getTotalCost()-autre.getTotalCost()<0) 
 		{
 			return -1 ;
 		}
-		else if(this.getCout()-autre.getCout()>0)
+		else if(this.getTotalCost()-autre.getTotalCost()>0)
 		{
 			return 1 ;
 		}

@@ -105,29 +105,35 @@ public class DijkstraTest2
    
 	     
     }
+    
+    // -------------- CAS 4-----------------------------------------
+    // carte Paris, chemin le plus rapide à pied, de la Tour Eiffel à Notre Dame
+    @Test
+    public void testDijkstra4() throws Exception
+    {
+        // Notre graphe de test
+    	Graph graph;
+        
+        // Recuperation de la carte
+         String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/paris.mapgr";
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+        // On met la carte dans notre variable graph
+         GraphReader reader = new BinaryGraphReader(
+                new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
+        graph=reader.read();
+       
+	    // création du data étudié (Graph + chemin + arcinspector)
+        ShortestPathData data = new ShortestPathData(graph, graph.get(39808), graph.get(1691) ,ArcInspectorFactory.getAllFilters().get(4));
+	   
+	    // appel de Bellman
+        ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
+	    // appel de Dijkstra
+        ShortestPathSolution solutionDijkstra = new DijkstraAlgorithm(data).doRun() ;
+	   
+	    // Comparaison des deux solutions
+	    assertEquals(solutionDijkstra.getPath().getLength(),solutionBellman.getPath().getLength(),1e-6);
+	     
+    }
 	
 	
 	
