@@ -41,8 +41,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 		
 		
         // --------------------iterations (poly1 page 89)-----------------
-		// Tant que le tas n'est pas vide, ie que tous les nodes atteignables ne sont pas marqués
-		while (!Tas.isEmpty())
+		// Tant que le tas n'est pas vide, ie que tous les nodes atteignables ne sont pas marqués // Ou que la destination n'est pas atteinte
+		while (!Tas.isEmpty() && destinationAtteinte==0)
 		{			
 			// variables utiles
 			x = Tas.deleteMin();
@@ -52,6 +52,14 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 			Node noeudy;
 			Label y;
 			Iterator<Arc> it = x.getNoeud().iterator();
+
+			
+			// si le chemin est atteint, on arrete la boucle
+			if (x.getNoeud().getId()==data.getDestination().getId())
+			{
+				destinationAtteinte=1;
+			}
+			
 			
 			// tant qu'il existe un arc atteignable
 			while (it.hasNext())
@@ -64,7 +72,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 				// si le noeud n'a jamais été initialisé dans le tab de label, on le fait
 				if(distances[noeudy.getId()]==null)
 				{
-					distances[noeudy.getId()]=new Label(noeudy,Double.POSITIVE_INFINITY,null,0);
+					distances[noeudy.getId()]=new Label(noeudy,Float.POSITIVE_INFINITY,null,0);
 				}
 				
 				// On récupère le label correspondant au noeud y
@@ -75,10 +83,10 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 				if (y.getMarquage()==0)
 				{
 					// si le coût du chemin est inferieur ET que le chemin est autorisé
-					if (y.getCout()>x.getCout()+data.getCost(arcxy) && data.isAllowed(arcxy))
+					if (y.getCout()>x.getCout()+arcxy.getLength() && data.isAllowed(arcxy))
 					{	
 						// On actualise le coût dans le tableau de label
-						distances[y.getNoeud().getId()].setCout(x.getCout()+data.getCost(arcxy));
+						distances[y.getNoeud().getId()].setCout(x.getCout()+arcxy.getLength());
 						distances[y.getNoeud().getId()].setPrecedent(x.getNoeud());
 						
 						// on regarde si l'element est déjà dans le tas avant de l'ajouter
@@ -94,11 +102,6 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 							Tas.insert(y);
 						}
 					}
-				}
-				// si le chemin est atteint, on arrete la boucle
-				if (y.getNoeud().compareTo(data.getDestination())==0)
-				{
-					destinationAtteinte=1;
 				}
 					
 			}

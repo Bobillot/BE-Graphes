@@ -14,14 +14,14 @@ import org.insa.graph.io.GraphReader;
 import org.insa.graphics.drawing.Drawing;
 import org.junit.Test;
 
-public class DijkstraTest2 
+public class AStarTest2 
 {
 	
     
     // -------------- CAS 1 -----------------------------------------
     // carte haute garonne, Tous chemins, en distance depuis le capitole de toulouse jusqu'a Ramonville
     @Test
-    public void testDijkstra1() throws Exception
+    public void testAStar1() throws Exception
     {	
         // Notre graphe de test
     	Graph graph;
@@ -39,17 +39,17 @@ public class DijkstraTest2
 	   
 	    // appel de Bellman
 	    ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
-	    // appel de Dijkstra
-	    ShortestPathSolution solutionDijkstra = new DijkstraAlgorithm(data).doRun() ;
+	    // appel de AStar
+	    ShortestPathSolution solutionAStar = new AStarAlgorithm(data).doRun() ;
 	   
 	    // Comparaison des deux solutions
-	    assertEquals(solutionBellman.getPath().getLength(),solutionDijkstra.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
+	    assertEquals(solutionBellman.getPath().getLength(),solutionAStar.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
     }
     
     // -------------- CAS 2 -----------------------------------------
     // carte toulouse, Voiture, en distance depuis le bikini jusqu'a insa (gei) === Chemin impossible
     @Test
-    public void testDijkstra2() throws Exception
+    public void testAStar2() throws Exception
     {
         // Notre graphe de test
     	Graph graph;
@@ -67,11 +67,11 @@ public class DijkstraTest2
 	   
 	    // appel de Bellman
         ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
-	    // appel de Dijkstra
-        ShortestPathSolution solutionDijkstra = new DijkstraAlgorithm(data).doRun() ;
+	    // appel de AStar
+        ShortestPathSolution solutionAStar = new AStarAlgorithm(data).doRun() ;
 	   
 	    // Comparaison des deux solutions
-	    assertEquals(solutionBellman.isFeasible(),solutionDijkstra.isFeasible());
+	    assertEquals(solutionBellman.isFeasible(),solutionAStar.isFeasible());
    
 	     
     }
@@ -79,7 +79,7 @@ public class DijkstraTest2
     // -------------- CAS 3 -----------------------------------------
     // carte Guadeloupe, en voiture, en distance de Le Moule à Saint Claude
     @Test
-    public void testDijkstra3() throws Exception
+    public void testAStar3() throws Exception
     {
         // Notre graphe de test
     	Graph graph;
@@ -97,11 +97,11 @@ public class DijkstraTest2
 	   
 	    // appel de Bellman
         ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
-	    // appel de Dijkstra
-        ShortestPathSolution solutionDijkstra = new DijkstraAlgorithm(data).doRun() ;
+	    // appel de AStar
+        ShortestPathSolution solutionAStar = new AStarAlgorithm(data).doRun() ;
 	   
 	    // Comparaison des deux solutions
-	    assertEquals(solutionBellman.getPath().getLength(),solutionDijkstra.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
+	    assertEquals(solutionBellman.getPath().getLength(),solutionAStar.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
    
 	     
     }
@@ -109,7 +109,7 @@ public class DijkstraTest2
     // -------------- CAS 4-----------------------------------------
     // carte Paris, chemin le plus rapide à pied, de la Tour Eiffel à Notre Dame
     @Test
-    public void testDijkstra4() throws Exception
+    public void testAStar4() throws Exception
     {
         // Notre graphe de test
     	Graph graph;
@@ -127,11 +127,11 @@ public class DijkstraTest2
 	   
 	    // appel de Bellman
         ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
-	    // appel de Dijkstra
-        ShortestPathSolution solutionDijkstra = new DijkstraAlgorithm(data).doRun() ;
+	    // appel de AStar
+        ShortestPathSolution solutionAStar = new AStarAlgorithm(data).doRun() ;
 	   
 	    // Comparaison des deux solutions
-	    assertEquals(solutionBellman.getPath().getLength(),solutionDijkstra.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
+	    assertEquals(solutionBellman.getPath().getLength(),solutionAStar.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
 	     
     }
 	

@@ -105,7 +105,10 @@ public class DijkstraTest
 	    			}		
 	    			
 	    			// Comparaison des deux solutions
-	    	    	assertEquals(tab[i][j],tab2[i][j],1e-6);
+	    	    	assertEquals(tab2[i][j],tab[i][j],0.01*tab2[i][j]);
+	    			
+	    			
+	    	    	
 	    			
     			}		
     		}
