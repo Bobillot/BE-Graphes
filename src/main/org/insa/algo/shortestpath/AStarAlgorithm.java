@@ -12,6 +12,7 @@ import org.insa.graph.Graph;
 import org.insa.graph.Node;
 import org.insa.graph.Path;
 import org.insa.graph.Point;
+import org.insa.algo.AbstractInputData.Mode;
 
 public class AStarAlgorithm extends DijkstraAlgorithm{
 
@@ -71,10 +72,29 @@ public class AStarAlgorithm extends DijkstraAlgorithm{
 				noeudy = arcxy.getDestination();
 				notifyNodeReached(noeudy);
 				
+				
 				// si le noeud n'a jamais √©t√© initialis√© dans le tab de LabelStar, on le fait
 				if(distances[noeudy.getId()]==null)
 				{
-					distances[noeudy.getId()]=new LabelStar(noeudy,Float.POSITIVE_INFINITY,null,0,(float)Point.distance(noeudy.getPoint(),pointDest));
+					float coutEstime = 0 ;
+					
+					// on regarde si on compare en distance ou en temps
+					if (data.getMode()==Mode.LENGTH)
+					{
+						// si on compare en distance, le cout estimÈ sera calculÈ avec la fonction point.distance
+						coutEstime = (float)Point.distance(noeudy.getPoint(),pointDest) ;
+						
+					}
+					else if (data.getMode()==Mode.TIME)
+					{
+						// si on compare en temps, on regarde si il y a un vitesse max
+						if (data.getGraph().getGraphInformation().hasMaximumSpeed())
+						{
+							// si oui, on l'utilise pour calculer le cout estimÈ
+							coutEstime = (float)Point.distance(noeudy.getPoint(),pointDest) / data.getGraph().getGraphInformation().getMaximumSpeed();
+						}
+					}
+					distances[noeudy.getId()]=new LabelStar(noeudy,Float.POSITIVE_INFINITY,null,0,coutEstime);
 				}
 				
 				// On r√©cup√®re le LabelStar correspondant au noeud y
