@@ -83,10 +83,10 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 				if (y.getMarquage()==0)
 				{
 					// si le coût du chemin est inferieur ET que le chemin est autorisé
-					if (y.getCout()>x.getCout()+arcxy.getLength() && data.isAllowed(arcxy))
+					if (y.getCout()>x.getCout()+data.getcost(arcxy) && data.isAllowed(arcxy))
 					{	
 						// On actualise le coût dans le tableau de label
-						distances[y.getNoeud().getId()].setCout(x.getCout()+arcxy.getLength());
+						distances[y.getNoeud().getId()].setCout(x.getCout()+data.getcost(arcxy));
 						distances[y.getNoeud().getId()].setPrecedent(x.getNoeud());
 						
 						// on regarde si l'element est déjà dans le tas avant de l'ajouter
