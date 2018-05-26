@@ -27,8 +27,8 @@ public class AStarTest2
     	Graph graph;
         
         // Recuperation de la carte
-        //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haute-garonne.mapgr";
-    	String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haute-garonne.mapgr";
+        String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haute-garonne.mapgr";
+    	//String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haute-garonne.mapgr";
         // On met la carte dans notre variable graph
         GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -55,8 +55,8 @@ public class AStarTest2
     	Graph graph;
         
         // Recuperation de la carte
-         //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/toulouse.mapgr";
-    	String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/toulouse.mapgr" ;
+        String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/toulouse.mapgr";
+    	//String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/toulouse.mapgr" ;
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -85,8 +85,8 @@ public class AStarTest2
     	Graph graph;
         
         // Recuperation de la carte
-       //  String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
-    	String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/guadeloupe.mapgr";
+         String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
+    	//String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/guadeloupe.mapgr";
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -115,8 +115,8 @@ public class AStarTest2
     	Graph graph;
         
         // Recuperation de la carte
-         //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/paris.mapgr";
-    	String mapName ="C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/paris.mapgr";
+        String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/paris.mapgr";
+    	//String mapName ="C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/paris.mapgr";
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));

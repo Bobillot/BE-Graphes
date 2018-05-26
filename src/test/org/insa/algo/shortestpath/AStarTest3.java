@@ -28,8 +28,8 @@ public class AStarTest3 {
     	Graph graph;
         
         // Recuperation de la carte
-  //      String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/bordeaux.mapgr";
-    	String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/bordeaux.mapgr";
+        String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/bordeaux.mapgr";
+    	//String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/bordeaux.mapgr";
 
         // On met la carte dans notre variable graph
         GraphReader reader = new BinaryGraphReader(
@@ -71,8 +71,8 @@ public class AStarTest3 {
 	    	Graph graph;
 	        
 	        // Recuperation de la carte
-	     //   String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haiti-and-domrep.mapgr";
-	        String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haiti-and-domrep.mapgr" ;
+	        String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haiti-and-domrep.mapgr";
+	       // String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haiti-and-domrep.mapgr" ;
 
 	        // On met la carte dans notre variable graph
 	        GraphReader reader = new BinaryGraphReader(
