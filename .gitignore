@@ -17,3 +17,4 @@ doc
 *.path
 *.tgz
 .metadata/
+src/test/org/insa/algo/shortestpath/AStarTest2.java
