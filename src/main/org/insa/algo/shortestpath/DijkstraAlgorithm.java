@@ -54,7 +54,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 			Iterator<Arc> it = x.getNoeud().iterator();
 
 			
-			// si la destination est atteinte, on arrete la boucle
+			// si le chemin est atteint, on arrete la boucle
 			if (x.getNoeud().getId()==data.getDestination().getId())
 			{
 				destinationAtteinte=1;

@@ -118,15 +118,10 @@ public class DijkstraTest
     	// affichage du tableau
 
     	System.out.println("Dijkstra");
-    	for (int i=0 ; i<6 ; i++)
-    	{
-    		System.out.println(Arrays.toString(tab[i]));
-    	}
+    	System.out.println(Arrays.deepToString(tab));
     	System.out.println("Bellman");
-    	for (int i=0 ; i<6 ; i++)
-    	{
-    		System.out.println(Arrays.toString(tab2[i]));
-    	}
+    	System.out.println(Arrays.deepToString(tab2));
+    	
     }
 
 }

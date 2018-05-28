@@ -28,7 +28,7 @@ public class DijkstraTest2
         
         // Recuperation de la carte
         String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haute-garonne.mapgr";
-    	//String mapName = "C:/Users/Loï¿½ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haute-garonne.mapgr";
+    	//String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haute-garonne.mapgr";
    	
         // On met la carte dans notre variable graph
         GraphReader reader = new BinaryGraphReader(
@@ -45,14 +45,6 @@ public class DijkstraTest2
 	   
 	    // Comparaison des deux solutions
 	    assertEquals(solutionBellman.getPath().getLength(),solutionDijkstra.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
-
-	    // affichage des rÃ©sultats
-	    System.out.println("CAS 1")  ;
-	    System.out.println("Bellman-Ford");
-	    System.out.println(solutionBellman.getPath().getLength());
-	    System.out.println("Dijkstra");
-	    System.out.println(solutionDijkstra.getPath().getLength());	    
-    
     }
     
     // -------------- CAS 2 -----------------------------------------
@@ -65,7 +57,7 @@ public class DijkstraTest2
         
         // Recuperation de la carte
          String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/toulouse.mapgr";
-     //	String mapName = "C:/Users/Loï¿½ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/toulouse.mapgr" ;
+     //	String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/toulouse.mapgr" ;
 
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
@@ -82,7 +74,7 @@ public class DijkstraTest2
 	   
 	    // Comparaison des deux solutions
 	    assertEquals(solutionBellman.isFeasible(),solutionDijkstra.isFeasible());
-	    
+   
 	     
     }
 
@@ -96,7 +88,7 @@ public class DijkstraTest2
         
         // Recuperation de la carte
          String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
-    //	String mapName = "C:/Users/Loï¿½ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/guadeloupe.mapgr";
+    //	String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/guadeloupe.mapgr";
 
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
@@ -114,13 +106,7 @@ public class DijkstraTest2
 	    // Comparaison des deux solutions
 	    assertEquals(solutionBellman.getPath().getLength(),solutionDijkstra.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
    
-	    // affichage des rÃ©sultats
-	    System.out.println("CAS 3")  ;
-	    System.out.println("Bellman-Ford");
-	    System.out.println(solutionBellman.getPath().getLength());
-	    System.out.println("Dijkstra");
-	    System.out.println(solutionDijkstra.getPath().getLength());	    
-   
+	     
     }
     
     // -------------- CAS 4-----------------------------------------
@@ -133,7 +119,7 @@ public class DijkstraTest2
         
         // Recuperation de la carte
          String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/paris.mapgr";
-    //	String mapName ="C:/Users/Loï¿½ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/paris.mapgr";
+    //	String mapName ="C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/paris.mapgr";
 
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
@@ -149,15 +135,8 @@ public class DijkstraTest2
         ShortestPathSolution solutionDijkstra = new DijkstraAlgorithm(data).doRun() ;
 	   
 	    // Comparaison des deux solutions
-	    assertEquals(solutionBellman.getPath().getTravelTime(5),solutionDijkstra.getPath().getTravelTime(5),0.01*solutionBellman.getPath().getTravelTime(5));
+	    assertEquals(solutionBellman.getPath().getMinimumTravelTime(),solutionDijkstra.getPath().getMinimumTravelTime(),0.01*solutionBellman.getPath().getMinimumTravelTime());
 	     
-	    // affichage des rÃ©sultats
-	    System.out.println("CAS 4")  ;
-	    System.out.println("Bellman-Ford");
-	    System.out.println(solutionBellman.getPath().getTravelTime(5));
-	    System.out.println("Dijkstra");
-	    System.out.println(solutionDijkstra.getPath().getTravelTime(5));	    
-   
     }
 	
 	
