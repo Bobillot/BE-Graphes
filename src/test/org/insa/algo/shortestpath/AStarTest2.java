@@ -28,7 +28,7 @@ public class AStarTest2
         
         // Recuperation de la carte
         String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haute-garonne.mapgr";
-    	//String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haute-garonne.mapgr";
+    	//String mapName = "C:/Users/Loï¿½ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haute-garonne.mapgr";
         // On met la carte dans notre variable graph
         GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -44,6 +44,14 @@ public class AStarTest2
 	   
 	    // Comparaison des deux solutions
 	    assertEquals(solutionBellman.getPath().getLength(),solutionAStar.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
+
+	    // affichage des rÃ©sultats
+	    System.out.println("CAS 1")  ;
+	    System.out.println("Bellman-Ford");
+	    System.out.println(solutionBellman.getPath().getLength());
+	    System.out.println("Dijkstra");
+	    System.out.println(solutionAStar.getPath().getLength()) ;
+    
     }
     
     // -------------- CAS 2 -----------------------------------------
@@ -56,7 +64,7 @@ public class AStarTest2
         
         // Recuperation de la carte
         String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/toulouse.mapgr";
-    	//String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/toulouse.mapgr" ;
+    	//String mapName = "C:/Users/Loï¿½ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/toulouse.mapgr" ;
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -86,7 +94,7 @@ public class AStarTest2
         
         // Recuperation de la carte
          String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
-    	//String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/guadeloupe.mapgr";
+    	//String mapName = "C:/Users/Loï¿½ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/guadeloupe.mapgr";
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -103,7 +111,12 @@ public class AStarTest2
 	    // Comparaison des deux solutions
 	    assertEquals(solutionBellman.getPath().getLength(),solutionAStar.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
    
-	     
+	    // affichage des rÃ©sultats
+	    System.out.println("CAS 2")  ;
+	    System.out.println("Bellman-Ford");
+	    System.out.println(solutionBellman.getPath().getLength());
+	    System.out.println("Dijkstra");
+	    System.out.println(solutionAStar.getPath().getLength()) ;
     }
     
     // -------------- CAS 4-----------------------------------------
@@ -116,7 +129,7 @@ public class AStarTest2
         
         // Recuperation de la carte
         String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/paris.mapgr";
-    	//String mapName ="C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/paris.mapgr";
+    	//String mapName ="C:/Users/Loï¿½ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/paris.mapgr";
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -133,6 +146,12 @@ public class AStarTest2
 	    // Comparaison des deux solutions
 	    assertEquals(solutionBellman.getPath().getMinimumTravelTime(),solutionAStar.getPath().getMinimumTravelTime(),0.01*solutionBellman.getPath().getMinimumTravelTime());
 	     
+	    // affichage des rÃ©sultats
+	    System.out.println("CAS 1")  ;
+	    System.out.println("Bellman-Ford");
+	    System.out.println(solutionBellman.getPath().getMinimumTravelTime());
+	    System.out.println("Dijkstra");
+	    System.out.println(solutionAStar.getPath().getMinimumTravelTime()) ;
     }
 	
 	
