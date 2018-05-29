@@ -28,14 +28,14 @@ public class AStarTest2
         
         // Recuperation de la carte
         //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haute-garonne.mapgr";
-    	String mapName = "C:/Users/Lo�ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haute-garonne.mapgr";
+    	String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haute-garonne.mapgr";
         // On met la carte dans notre variable graph
         GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
         graph=reader.read();
        
 	    // création du data étudié (Graph + chemin + arcinspector)
-	    ShortestPathData data = new ShortestPathData(graph, graph.get(56417), graph.get(51197) ,ArcInspectorFactory.getAllFilters().get(0));
+	    ShortestPathData data = new ShortestPathData(graph, graph.get(8094), graph.get(105571) ,ArcInspectorFactory.getAllFilters().get(0));
 	   
 	    // appel de Bellman
 	    ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
@@ -66,7 +66,7 @@ public class AStarTest2
         
         // Recuperation de la carte
         //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/toulouse.mapgr";
-    	String mapName = "C:/Users/Lo�ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/toulouse.mapgr" ;
+    	String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/toulouse.mapgr";
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -95,14 +95,14 @@ public class AStarTest2
         
         // Recuperation de la carte
         // String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
-    	String mapName = "C:/Users/Lo�ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/guadeloupe.mapgr";
+    	 String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
         graph=reader.read();
        
 	    // création du data étudié (Graph + chemin + arcinspector)
-        ShortestPathData data = new ShortestPathData(graph, graph.get(9381), graph.get(31247) ,ArcInspectorFactory.getAllFilters().get(1));
+        ShortestPathData data = new ShortestPathData(graph, graph.get(111), graph.get(10486) ,ArcInspectorFactory.getAllFilters().get(1));
 	   
 	    // appel de Bellman
         ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
@@ -131,14 +131,14 @@ public class AStarTest2
         
         // Recuperation de la carte
         //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/paris.mapgr";
-    	String mapName ="C:/Users/Lo�ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/paris.mapgr";
+    	 String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/paris.mapgr";
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
         graph=reader.read();
        
 	    // création du data étudié (Graph + chemin + arcinspector)
-        ShortestPathData data = new ShortestPathData(graph, graph.get(39808), graph.get(1691) ,ArcInspectorFactory.getAllFilters().get(4));
+        ShortestPathData data = new ShortestPathData(graph, graph.get(1053), graph.get(7301) ,ArcInspectorFactory.getAllFilters().get(4));
 	   
 	    // appel de Bellman
         ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;

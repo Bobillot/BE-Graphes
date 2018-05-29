@@ -36,7 +36,7 @@ public class DijkstraTest2
         graph=reader.read();
        
 	    // création du data étudié (Graph + chemin + arcinspector)
-	    ShortestPathData data = new ShortestPathData(graph, graph.get(56417), graph.get(51197) ,ArcInspectorFactory.getAllFilters().get(0));
+	    ShortestPathData data = new ShortestPathData(graph, graph.get(8094), graph.get(105571) ,ArcInspectorFactory.getAllFilters().get(0));
 	   
 	    // appel de Bellman
 	    ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
@@ -104,7 +104,7 @@ public class DijkstraTest2
         graph=reader.read();
        
 	    // création du data étudié (Graph + chemin + arcinspector)
-        ShortestPathData data = new ShortestPathData(graph, graph.get(9381), graph.get(31247) ,ArcInspectorFactory.getAllFilters().get(1));
+        ShortestPathData data = new ShortestPathData(graph, graph.get(111), graph.get(10486) ,ArcInspectorFactory.getAllFilters().get(1));
 	   
 	    // appel de Bellman
         ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
@@ -141,7 +141,7 @@ public class DijkstraTest2
         graph=reader.read();
        
 	    // création du data étudié (Graph + chemin + arcinspector)
-        ShortestPathData data = new ShortestPathData(graph, graph.get(39808), graph.get(1691) ,ArcInspectorFactory.getAllFilters().get(4));
+        ShortestPathData data = new ShortestPathData(graph, graph.get(1053), graph.get(7301) ,ArcInspectorFactory.getAllFilters().get(4));
 	   
 	    // appel de Bellman
         ShortestPathSolution solutionBellman = new BellmanFordAlgorithm(data).doRun() ;
