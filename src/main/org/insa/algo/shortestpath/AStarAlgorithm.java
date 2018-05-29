@@ -36,6 +36,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm{
         // variables utiles
 		int destinationAtteinte=0;
 		int nbNodes = graph.size() ;
+		int nbMarked=0; // Pour nos tests de performance 
         
 		
         // creation du tableau de LabelStar et ajout du premier ï¿½lï¿½ment(origine)
@@ -52,6 +53,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm{
 			x = Tas.deleteMin();
 			distances[x.getNoeud().getId()].setMarquage(1);// marquage du noeud actuel
 			notifyNodeMarked(x.getNoeud());
+			nbMarked++;
 			Arc arcxy;
 			Node noeudy;
 			LabelStar y;
@@ -81,7 +83,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm{
 					// on regarde si on compare en distance ou en temps
 					if (data.getMode()==Mode.LENGTH)
 					{
-						// si on compare en distance, le cout estimé sera calculé avec la fonction point.distance
+						// si on compare en distance, le cout estimï¿½ sera calculï¿½ avec la fonction point.distance
 						coutEstime = (float)Point.distance(noeudy.getPoint(),pointDest) ;
 						
 					}
@@ -90,7 +92,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm{
 						// si on compare en temps, on regarde si il y a un vitesse max
 						if (data.getGraph().getGraphInformation().hasMaximumSpeed())
 						{
-							// si oui, on l'utilise pour calculer le cout estimé
+							// si oui, on l'utilise pour calculer le cout estimï¿½
 							coutEstime = (float)Point.distance(noeudy.getPoint(),pointDest) / data.getGraph().getGraphInformation().getMaximumSpeed();
 						}
 					}
@@ -159,6 +161,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm{
 			
 			// on crÃ©e la solution
 			solution = new ShortestPathSolution(data,Status.OPTIMAL,chemin);
+			System.out.println("A* : Nombre de noeuds marquÃ©s : "+nbMarked);
 	        return solution;
 		}
     }

@@ -32,6 +32,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         // variables utiles
 		int destinationAtteinte=0;
 		int nbNodes = graph.size() ;
+		int nbMarked=0; // Pour nos tests de performance 
         
 		
         // creation du tableau de Label et ajout du premier �l�ment(origine)
@@ -48,6 +49,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 			x = Tas.deleteMin();
 			distances[x.getNoeud().getId()].setMarquage(1);// marquage du noeud actuel
 			notifyNodeMarked(x.getNoeud());
+			nbMarked++;
 			Arc arcxy;
 			Node noeudy;
 			Label y;
@@ -137,6 +139,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 			
 			// on crée la solution
 			solution = new ShortestPathSolution(data,Status.OPTIMAL,chemin);
+			
+			System.out.println("Dijkstra : Nombre de noeuds marqués : "+nbMarked);
 	        return solution;
 		}
     }
