@@ -27,8 +27,8 @@ public class AStarTest2
     	Graph graph;
         
         // Recuperation de la carte
-        String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haute-garonne.mapgr";
-    	//String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haute-garonne.mapgr";
+        //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haute-garonne.mapgr";
+    	String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haute-garonne.mapgr";
         // On met la carte dans notre variable graph
         GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -44,6 +44,16 @@ public class AStarTest2
 	   
 	    // Comparaison des deux solutions
 	    assertEquals(solutionBellman.getPath().getLength(),solutionAStar.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
+	   
+	    // affichage des rÃ©sultats
+	    System.out.println("CAS 1")  ;
+	    System.out.println("Bellman-Ford");
+	    System.out.println(solutionBellman.getPath().getLength());
+	    System.out.println("A*");
+	    System.out.println(solutionAStar.getPath().getLength());	
+	     
+    
+    
     }
     
     // -------------- CAS 2 -----------------------------------------
@@ -55,8 +65,8 @@ public class AStarTest2
     	Graph graph;
         
         // Recuperation de la carte
-        /String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/toulouse.mapgr";
-    	//String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/toulouse.mapgr" ;
+        //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/toulouse.mapgr";
+    	String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/toulouse.mapgr" ;
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -72,8 +82,7 @@ public class AStarTest2
 	   
 	    // Comparaison des deux solutions
 	    assertEquals(solutionBellman.isFeasible(),solutionAStar.isFeasible());
-   
-	     
+	   
     }
 
     // -------------- CAS 3 -----------------------------------------
@@ -85,8 +94,8 @@ public class AStarTest2
     	Graph graph;
         
         // Recuperation de la carte
-         String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
-    	//String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/guadeloupe.mapgr";
+        // String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
+    	String mapName = "C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/guadeloupe.mapgr";
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -103,6 +112,12 @@ public class AStarTest2
 	    // Comparaison des deux solutions
 	    assertEquals(solutionBellman.getPath().getLength(),solutionAStar.getPath().getLength(),0.01*solutionBellman.getPath().getLength());
    
+	    // affichage des rÃ©sultats
+	    System.out.println("CAS 3")  ;
+	    System.out.println("Bellman-Ford");
+	    System.out.println(solutionBellman.getPath().getLength());
+	    System.out.println("A*");
+	    System.out.println(solutionAStar.getPath().getLength());	
 	     
     }
     
@@ -115,8 +130,8 @@ public class AStarTest2
     	Graph graph;
         
         // Recuperation de la carte
-        String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/paris.mapgr";
-    	//String mapName ="C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/paris.mapgr";
+        //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/paris.mapgr";
+    	String mapName ="C:/Users/Loïca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/paris.mapgr";
         // On met la carte dans notre variable graph
          GraphReader reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -131,8 +146,14 @@ public class AStarTest2
         ShortestPathSolution solutionAStar = new AStarAlgorithm(data).doRun() ;
 	   
 	    // Comparaison des deux solutions
-	    assertEquals(solutionBellman.getPath().getMinimumTravelTime(),solutionAStar.getPath().getMinimumTravelTime(),0.01*solutionBellman.getPath().getMinimumTravelTime());
+	    assertEquals(solutionBellman.getPath().getTravelTime(5),solutionAStar.getPath().getTravelTime(5),0.01*solutionBellman.getPath().getTravelTime(5));
 	     
+	    // affichage des rÃ©sultats
+	    System.out.println("CAS 4")  ;
+	    System.out.println("Bellman-Ford");
+	    System.out.println(solutionBellman.getPath().getTravelTime(5));
+	    System.out.println("A*");
+	    System.out.println(solutionAStar.getPath().getTravelTime(5));	  
     }
 	
 	

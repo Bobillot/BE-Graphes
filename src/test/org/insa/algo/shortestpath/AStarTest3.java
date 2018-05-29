@@ -28,8 +28,8 @@ public class AStarTest3 {
     	Graph graph;
         
         // Recuperation de la carte
-        String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/bordeaux.mapgr";
-    	//String mapName = "C:/Users/Lo�ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/bordeaux.mapgr";
+        //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/bordeaux.mapgr";
+    	String mapName = "C:/Users/Lo�ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/bordeaux.mapgr";
 
         // On met la carte dans notre variable graph
         GraphReader reader = new BinaryGraphReader(
@@ -52,13 +52,19 @@ public class AStarTest3 {
 	    ShortestPathData dataCA = new ShortestPathData(graph, graph.get(C), graph.get(A) ,ArcInspectorFactory.getAllFilters().get(0));
 	   
 	    // appel de AStar sur le segment CA
-	    ShortestPathSolution solutionAStarCA = new AStarAlgorithm(dataCA).doRun() ;
-	    
-	    
+	    ShortestPathSolution solutionAStarCA = new AStarAlgorithm(dataCA).doRun() ; 
 	   
 	    // Comparaison des deux solutions
 	    assertTrue((solutionAStarAB.getPath().getLength())<(solutionAStarBC.getPath().getLength()+solutionAStarCA.getPath().getLength()));
 	    
+	    // affichage des résultats
+	    System.out.println("CAS 1")  ;
+	    System.out.println("de A à B");
+	    System.out.println(solutionAStarAB.getPath().getLength());
+	    System.out.println("De B à C");
+	    System.out.println(solutionAStarBC.getPath().getLength());
+	    System.out.println("De C à A");
+	    System.out.println(solutionAStarCA.getPath().getLength());
     }
 	    
 	    // -------------- CAS 2 -----------------------------------------
@@ -71,14 +77,16 @@ public class AStarTest3 {
 	    	Graph graph;
 	        
 	        // Recuperation de la carte
-	        String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haiti-and-domrep.mapgr";
-	       // String mapName = "C:/Users/Lo�ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haiti-and-domrep.mapgr" ;
+	        //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/haiti-and-domrep.mapgr";
+	    	String mapName = "C:/Users/Lo�ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/haiti-and-domrep.mapgr" ;
 
 	        // On met la carte dans notre variable graph
 	        GraphReader reader = new BinaryGraphReader(
 	                new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
 	        graph=reader.read();
-	       
+		   
+	        // Chemin Aller
+	        
 		    // création du data étudié (Graph + chemin + arcinspector) sur le segment AB
 		    ShortestPathData dataAB = new ShortestPathData(graph, graph.get(A), graph.get(B) ,ArcInspectorFactory.getAllFilters().get(0));
 		   
@@ -88,7 +96,94 @@ public class AStarTest3 {
 		    // Comparaison des deux solutions
 		    assertTrue(!solutionAStarAB.isFeasible());
 		    
+		    // chemin Retour
+		    
+		    // création du data étudié (Graph + chemin + arcinspector) sur le segment BA
+		    ShortestPathData dataBA = new ShortestPathData(graph, graph.get(B), graph.get(A) ,ArcInspectorFactory.getAllFilters().get(0));
+		   
+		    // appel de AStar sur le segment BA
+		    ShortestPathSolution solutionAStarBA = new AStarAlgorithm(dataBA).doRun() ;
+		    
+		    // Comparaison des deux solutions
+		    assertTrue(!solutionAStarBA.isFeasible()) ;
+	    }
+	    
+	    @Test
+	    public void testAStar3() throws Exception
+	    {
+	    
+	    // -------------- CAS 3 ----------------------------
+	    // Trajet aller et retour, en voiture, carte Bretagne, entre Saint Malo et Plougastel Daoulas
+	    
+	    int A=18100,B=162869;
+        // Notre graphe de test
+    	Graph graph;
+        
+        // Recuperation de la carte
+        //String mapName = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/bretagne.mapgr";
+        String mapName = "C:/Users/Lo�ca Marotte/Documents/Cours/3A/Cours/S2/BE-Graphes/bretagne.mapgr" ;
+        
+     // On met la carte dans notre variable graph
+        GraphReader reader = new BinaryGraphReader(
+                new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
+        graph=reader.read();
+   
+	    // TEST EN DISTANCE
+        
+	    // création du data étudié (Graph + chemin + arcinspector) sur le segment AB
+	    ShortestPathData dataAB = new ShortestPathData(graph, graph.get(A), graph.get(B) ,ArcInspectorFactory.getAllFilters().get(1));
+	    
+	    // appel de AStar sur le segment AB
+	    ShortestPathSolution solutionAStarAB = new AStarAlgorithm(dataAB).doRun() ;
+	    
+	    // création du data étudié (Graph + chemin + arcinspector) sur le segment BA
+	    ShortestPathData dataBA = new ShortestPathData(graph, graph.get(B), graph.get(A) ,ArcInspectorFactory.getAllFilters().get(1));
+	    
+	    // appel de AStar sur le segment BA
+	    ShortestPathSolution solutionAStarBA = new AStarAlgorithm(dataBA).doRun() ;
+	    
+	    // Comparaison des deux solutions
+	    assertEquals(solutionAStarAB.getPath().getLength(),solutionAStarBA.getPath().getLength(),0.01*solutionAStarAB.getPath().getLength());
+	    
+	    // affichage des résultats
+	    System.out.println("CAS 3")  ;
+	    System.out.println("En distance")  ;
+	    System.out.println("de A à B");
+	    System.out.println(solutionAStarAB.getPath().getLength());
+	    System.out.println("De B à A");
+	    System.out.println(solutionAStarBA.getPath().getLength());	 
+	    
+
+	    // TEST EN TEMPS
+	    
+	    // création du data étudié (Graph + chemin + arcinspector) sur le segment AB
+	    ShortestPathData dataAB2 = new ShortestPathData(graph, graph.get(A), graph.get(B) ,ArcInspectorFactory.getAllFilters().get(2));
+	    
+	    // appel de AStar sur le segment AB
+	    ShortestPathSolution solutionAStarAB2 = new AStarAlgorithm(dataAB2).doRun() ;
+	    
+	    // création du data étudié (Graph + chemin + arcinspector) sur le segment BA
+	    ShortestPathData dataBA2 = new ShortestPathData(graph, graph.get(B), graph.get(A) ,ArcInspectorFactory.getAllFilters().get(2));
+	    
+	    // appel de AStar sur le segment BA
+	    ShortestPathSolution solutionAStarBA2 = new AStarAlgorithm(dataBA2).doRun() ;
+	    
+	    // Comparaison des deux solutions
+	    assertEquals(solutionAStarAB2.getPath().getMinimumTravelTime(),solutionAStarBA2.getPath().getMinimumTravelTime(),0.01*solutionAStarAB2.getPath().getMinimumTravelTime());
+
+	    // affichage des résultats
+	    System.out.println("En temps")  ;
+	    System.out.println("de A à B");
+	    System.out.println(solutionAStarAB2.getPath().getMinimumTravelTime());
+	    System.out.println("De B à A");
+	    System.out.println(solutionAStarBA2.getPath().getMinimumTravelTime());
+	    
+	    }
+	    
+	   
+		    
+		    
     }
 	    
 	    
-}
+
